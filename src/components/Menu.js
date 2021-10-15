@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Icon, Image, Modal, Divider, Header, Card } from 'semantic-ui-react'
+import { Icon, Image, Modal, Divider, Header, Card } from 'semantic-ui-react'
 
 const Menu = ({ menu, plats }) => {
 
