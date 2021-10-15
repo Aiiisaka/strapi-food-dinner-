@@ -53,6 +53,20 @@ const Menu = ({ menu, plats }) => {
         )
     }
 
+    function withoutPlats(plats, categoriePlat) {
+        if (plats.length === 0) {
+            return "Ce menu ne comporte pas de "+categoriePlat+".";
+        } else {
+            return (
+            <>
+                <Card.Group itemsPerRow={3}>
+                    {
+                        generateCard(plats)
+                    }
+                </Card.Group>
+            </>);
+        }
+    };
 
     return (
         <>
@@ -75,13 +89,9 @@ const Menu = ({ menu, plats }) => {
                             </Header>
                         </Divider>
 
-
-                        <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>
-                        <Card.Group itemsPerRow={3}>
-                            {
-                                generateCard(entree)
-                            }
-                        </Card.Group>
+                        {
+                            withoutPlats(entree, "entrées")
+                        }
 
                         <Divider horizontal>
                             <Header as='h4'>
@@ -90,11 +100,9 @@ const Menu = ({ menu, plats }) => {
                             </Header>
                         </Divider>
 
-                        <Card.Group itemsPerRow={3}>
-                            {
-                                generateCard(plat)
-                            }
-                        </Card.Group>
+                        {
+                            withoutPlats(plat, "plats")
+                        }
 
                         <Divider horizontal>
                             <Header as='h4'>
@@ -103,11 +111,9 @@ const Menu = ({ menu, plats }) => {
                             </Header>
                         </Divider>
 
-                        <Card.Group itemsPerRow={3}>
-                            {
-                                generateCard(dessert)
-                            }
-                        </Card.Group>
+                        {
+                            withoutPlats(dessert, "desserts")
+                        }
 
                         <Divider horizontal>
                             <Header as='h4'>
@@ -116,11 +122,9 @@ const Menu = ({ menu, plats }) => {
                             </Header>
                         </Divider>
 
-                        <Card.Group itemsPerRow={3}>
-                            {
-                                generateCard(boisson)
-                            }
-                        </Card.Group>
+                        {
+                            withoutPlats(boisson, "boissons")
+                        }
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
