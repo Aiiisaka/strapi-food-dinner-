@@ -23,7 +23,7 @@ class Navigation extends React.Component {
                         Straπ Food
                     </Header>
                 </Segment>
-                <Menu inverted borderless className="no-radius sticky" style={{margin: "0px"}}>
+                <Menu inverted size="huge" borderless className="no-radius sticky" style={{margin: "0px"}}>
                     <NavLink to="/">
                         <Menu.Item
                             name='menus'

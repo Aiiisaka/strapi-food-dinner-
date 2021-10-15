@@ -6,19 +6,18 @@ export default class ListePlat extends React.Component {
     render() {
         return (
             <>
-                <Card centered itemsPerRow={4}>
-                    <Image src={this.props.plat.image} wrapped ui={false} />
-                    <Card.Content>
-                        <Card.Header>{this.props.plat.nom}</Card.Header>
-                        <Card.Description>
-                            {this.props.plat.description}
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                            <Icon name='eur' />
-                            {this.props.plat.prix} euros
-                    </Card.Content>
-                </Card>
+                <div class="grid">
+                    <img src={this.props.plat.image} />
+                    <div class="grid__body">
+                        <div class="relative">
+                            <h1 class="grid__title">{this.props.plat.nom}</h1>
+                            <p class="grid__author">{this.props.plat.description}</p>
+                        </div>
+                        <div class="mt-auto" >
+                            <span class="grid__tag">{this.props.plat.prix} euros</span>
+                        </div>
+                    </div>
+                </div>
             </>
         )
     }

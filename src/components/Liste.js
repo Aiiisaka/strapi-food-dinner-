@@ -48,26 +48,31 @@ const Liste = ({ plats, menus, match }) => {
                     <div class="border border-bottom">
                     </div>
                 </div>
-            <Header as='h1' color='white'>Liste des Menus</Header>
-                <List>
-                    {
-                        filtrage.map((menu) => < ListeMenus menu={menu} key={menu.id} />)
-                    }
-                </List>
+                <div class="menu-list">
+                    <div class="demo-description">
+                        <h1 class="demo-description__title">StraPi Food Dinner</h1>
+                        <p class="demo-description__p">Cliquez sur les noms des menus pour voir les compositions</p>
+                    </div>
+                    <div class="demo coursemeal">
+                        {
+                            filtrage.map((menu) => < ListeMenus menu={menu} key={menu.id} />)
+                        }
+                    </div>
+                </div>
             </>
         )
     } else {
-    return (
-        <>
-            <Header as='h1' color='brown'>Liste des Plats</Header>
-            <List itemsPerRow={4} centered>
-                {
-                    filtrage.map((plat) => < ListePlats plat={plat} key={plat.id} />)
-                }
-            </List>
-        </>
-    )
-}
+        return (
+            <>
+                <Header as='h1' color='brown' textAlign="center">Liste des Plats</Header>
+                <div class="masonry">
+                    {
+                        filtrage.map((plat) => < ListePlats plat={plat} key={plat.id} />)
+                    }
+                </div>
+            </>
+        )
+    }
 }
 
 export default Liste

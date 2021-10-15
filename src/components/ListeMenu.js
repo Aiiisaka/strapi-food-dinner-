@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Image, List, Button } from 'semantic-ui-react';
+import { Image, List, Button, Segment, Container } from 'semantic-ui-react';
 import Menu from './Menu';
 
 export default class ListeMenu extends React.Component {
@@ -15,22 +15,24 @@ export default class ListeMenu extends React.Component {
                 </List.Item>
                 
             </>*/
-            <List.Item>
-                    <Image avatar size='small' src='https://react.semantic-ui.com/images/avatar/small/helen.jpg' />
-                    <List.Content>
-                        <List.Header>Snickerdoodle</List.Header>
-                        An excellent companion
-                    </List.Content>
-                    <Button floated='right'></Button>
-                </List.Item>
-                /*
-            <Container text>
-                <Segment.Group horizontal>
-                    <Segment textAlign='center'><Image avatar src={this.props.menu.image} /></Segment>
-                    <Segment textAlign='center'>Middle</Segment>
-                    <Segment textAlign='center'>Right</Segment>
-                </Segment.Group>
-            </Container>*/
+            /*
+        <Container text>
+            <Segment.Group horizontal>
+                <Segment textAlign='center'><Image avatar src={this.props.menu.image} /></Segment>
+                <Segment textAlign='center'>Middle</Segment>
+                <Segment textAlign='center'>Right</Segment>
+            </Segment.Group>
+        </Container>*/
+            <div class="coursemeal__div ">
+
+                <picture class="responsive-img">
+                    <img src={this.props.menu.image} alt={this.props.menu.nom} />
+                </picture>
+
+                <div class="coursemeal-info">
+                    <Menu menu={this.props.menu} plats={this.props.menu.plats} />
+                </div>
+            </div>
 
         )
     }
