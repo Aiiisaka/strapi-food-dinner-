@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Divider, Form, Grid, Segment, Message, Header, Icon } from 'semantic-ui-react'
+import { Button, Divider, Form, Grid, Segment, Message, Header, Icon, Dropdown } from 'semantic-ui-react'
 
 // Parses the JSON returned by a network request
 const parseJSON = resp => (resp.json ? resp.json() : resp);
@@ -24,17 +24,17 @@ export default class AddMenusPlats extends React.Component {
         super(props);
         this.state = {
             modifiedDataPlat: {
-                image: 'https://wegoboard.com/img/p/fr-default-large_default.jpg',
+                image: '',
                 nom: '',
                 description: '',
                 prix: '',
-                categories: [],
-                menus: [],
+                category: [],
+                menu: '',
             },
             allCategories: [],
             allMenus: [],
             modifiedDataMenu: {
-                image: 'https://wegoboard.com/img/p/fr-default-large_default.jpg',
+                image: '',
                 nom: '',
                 description: '',
             },
@@ -75,6 +75,7 @@ export default class AddMenusPlats extends React.Component {
     };
 
     handleInputChangePlat = ({ target: { name, value } }) => {
+        console.log("Name : "+name+" - Value : "+value);
         this.setState(prev => ({
             ...prev,
             modifiedDataPlat: {
@@ -88,6 +89,10 @@ export default class AddMenusPlats extends React.Component {
         e.preventDefault();
 
         try {
+            if (this.state.modifiedDataPlat.image === '') {
+                this.state.modifiedDataPlat.image = 'https://wegoboard.com/img/p/fr-default-large_default.jpg';
+            }
+
             await fetch('http://54.37.165.18:1337/plats', {
                 method: 'POST',
                 headers: headers,
@@ -102,6 +107,10 @@ export default class AddMenusPlats extends React.Component {
         e.preventDefault();
 
         try {
+            if (this.state.modifiedDataMenu.image === '') {
+                this.state.modifiedDataMenu.image = 'https://wegoboard.com/img/p/fr-default-large_default.jpg';
+            }
+
             await fetch('http://54.37.165.18:1337/menus', {
                 method: 'POST',
                 headers: headers,
@@ -112,71 +121,39 @@ export default class AddMenusPlats extends React.Component {
         }
     };
 
-    renderOptionMenus = menu => {
-        const {
-            modifiedDataPlat: { menus },
-        } = this.state;
-        
-        const isChecked = menus.includes(menu.id);
-
-        const handleChangeMenu = () => {
-            if (!menus.includes(menu.id)) {
-                this.handleInputChangePlat({
-                    target: { name: 'menus', value: menus.concat(menu.id) },
-                });
-            } else {
-                this.handleInputChangePlat({
-                    target: {
-                        name: 'menus',
-                        value: menus.filter(v => v !== menu.id),
-                    },
-                });
-            }
-        };
-
+    renderOptionMenus = unMenu => {
         return (
             <option
-                label={menu.nom}
-                checked={isChecked}
-                onChange={handleChangeMenu}
-                name="menus"
-                id={menu.id} >
-            </option>
+                label={unMenu.nom}
+                value={unMenu.nom}
+                name="menu"
+                id={unMenu.id}
+            />
         );
     };
 
-    renderOptionCategories = categorie => {
-        const {
-            modifiedDataPlat: { categories },
-        } = this.state;
-        
-        const isChecked = categories.includes(categorie.id);
-
-        const handleChangeCategorie = () => {
-            if (!categories.includes(categorie.id)) {
-                this.handleInputChangePlat({
-                    target: { name: 'categories', value: categories.concat(categorie.id) },
-                });
-            } else {
-                this.handleInputChangePlat({
-                    target: {
-                        name: 'categories',
-                        value: categories.filter(v => v !== categorie.id),
-                    },
-                });
-            }
-        };
-
+    renderOptionCategories = uneCategorie => {
         return (
             <option
-                label={categorie.nom}
-                checked={isChecked}
-                onChange={handleChangeCategorie}
-                name="categories"
-                id={categorie.id} >
-            </option>
+                label={uneCategorie.nom}
+                value={uneCategorie.nom}
+                name="category"
+                id={uneCategorie.id}
+            />
         );
-  };
+    };
+
+    handleChangeCategory = (event) => {
+        this.handleInputChangePlat({
+            target: { name: 'category', value: event.target.options[event.target.selectedIndex].id },
+        });
+    };
+
+    handleChangeMenu = (event) => {
+        this.handleInputChangePlat({
+            target: { name: 'menu', value: event.target.options[event.target.selectedIndex].id },
+        });
+    };
 
     render() {
         const { error, allCategories, allMenus, modifiedDataMenu, modifiedDataPlat } = this.state;
@@ -291,7 +268,7 @@ export default class AddMenusPlats extends React.Component {
                                         value={modifiedDataPlat.description}
                                     />
 
-                                    <Form.Field required label='Liste des Catégories' control='select'>
+                                    <Form.Field required label='Liste des Catégories' onChange={this.handleChangeCategory} control='select'>
                                         <option disabled selected value="">Categories</option>
                                         {allCategories.map(this.renderOptionCategories)}
                                     </Form.Field>
@@ -311,7 +288,7 @@ export default class AddMenusPlats extends React.Component {
                                         value={modifiedDataPlat.prix}
                                     />
 
-                                    <Form.Field label='Listes des Menus' control='select'>
+                                    <Form.Field label='Listes des Menus' onChange={this.handleChangeMenu} control='select'>
                                         <option disabled selected value="">Menus</option>
                                         {allMenus.map(this.renderOptionMenus)}
                                     </Form.Field>
