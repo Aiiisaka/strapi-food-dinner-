@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Divider, Form, Grid, Segment, Message, Header, Icon, Dropdown } from 'semantic-ui-react'
+import { Button, Divider, Form, Grid, Segment, Message, Header, Icon } from 'semantic-ui-react'
 
 // Parses the JSON returned by a network request
 const parseJSON = resp => (resp.json ? resp.json() : resp);
@@ -29,7 +29,7 @@ export default class AddMenusPlats extends React.Component {
                 description: '',
                 prix: '',
                 category: [],
-                menu: '',
+                menu: [],
             },
             allCategories: [],
             allMenus: [],
@@ -98,6 +98,8 @@ export default class AddMenusPlats extends React.Component {
                 headers: headers,
                 body: JSON.stringify(this.state.modifiedDataPlat),
             }).then(checkStatus).then(parseJSON);
+
+            window.location.reload(false);
         } catch (error) {
             this.setState({ error });
         }
@@ -116,6 +118,8 @@ export default class AddMenusPlats extends React.Component {
                 headers: headers,
                 body: JSON.stringify(this.state.modifiedDataMenu),
             }).then(checkStatus).then(parseJSON);
+
+            window.location.reload(false);
         } catch (error) {
             this.setState({ error });
         }
