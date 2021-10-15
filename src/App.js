@@ -13,7 +13,7 @@ export default class App extends React.Component {
   state = {
     allPlats: [],
     allMenus: [],
-    error: null,
+    error: null, 
   };
 
   componentDidMount = async () => {
