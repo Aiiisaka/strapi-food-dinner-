@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { Card, Icon, Image } from 'semantic-ui-react'
-
 export default class ListePlat extends React.Component {
     render() {
         return (
