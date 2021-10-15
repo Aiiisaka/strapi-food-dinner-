@@ -65,11 +65,11 @@ const Liste = ({ plats, menus, match }) => {
         return (
             <>
                 <Header as='h1' color='brown' textAlign="center">Liste des Plats</Header>
-                <List itemsPerRow={4} centered>
+                <div class="masonry">
                     {
                         filtrage.map((plat) => < ListePlats plat={plat} key={plat.id} />)
                     }
-                </List>
+                </div>
             </>
         )
     }

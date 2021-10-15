@@ -154,15 +154,14 @@ padding: 0 0 2em 0;
   transition: all 0.4s;
 }
 
-.coursemeal-info__link:link,
-.coursemeal-info__link:visited {
+.coursemeal-info__link {
   font-family: 'Abril Fatface', cursive;
   font-size: 30px;
   color: #fff;
   text-align: center;
   letter-spacing: 1.8px;
   margin: 0;
-  text-decoration: none;
+  cursor: pointer;
 
   transition: all 0.4s;
 }

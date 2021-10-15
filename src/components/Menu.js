@@ -61,7 +61,7 @@ const Menu = ({ menu, plats }) => {
                 open={open}
                 onClose={() => setOpen(false)}
                 onOpen={() => setOpen(true)}
-                trigger={<a class="coursemeal-info__link" href="#">{menu.nom}</a>}
+                trigger={<p class="coursemeal-info__link">{menu.nom}</p>}
             >
                 <Modal.Header>{menu.nom}</Modal.Header>
                 <Modal.Content image scrolling>
