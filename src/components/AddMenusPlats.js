@@ -269,7 +269,7 @@ export default class AddMenusPlats extends React.Component {
                                     />
 
                                     <Form.Field required label='Liste des Catégories' onChange={this.handleChangeCategory} control='select'>
-                                        <option disabled selected value="">Categories</option>
+                                        <option disabled selected value="">Catégories</option>
                                         {allCategories.map(this.renderOptionCategories)}
                                     </Form.Field>
                                 </Form.Group>
