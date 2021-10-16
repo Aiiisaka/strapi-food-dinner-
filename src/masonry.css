@@ -77,6 +77,29 @@
     margin-bottom: 5px;
 }
 
+.grid__icon {
+    padding: 10px;
+}
+
+.grid__icon.modify:hover{
+    color: rgb(145, 186, 224);
+}
+
+.grid__icon.kill:hover{
+    color: rgb(252, 143, 143);
+}
+
+.grid__control_icons {
+    right: 0;
+    position: absolute;
+    margin: 0 10px!important;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.mt-0 {
+    margin-top: 0;
+}
 .mt-auto {
     margin-top: auto;
 }
