@@ -128,7 +128,7 @@ const Menu = ({ menu, plats }) => {
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Header as='h3' float='center'>
+                    <Header as='h4' style={{textAlign: 'center'}}>
                         {menu.description}
                     </Header>
                 </Modal.Actions>
