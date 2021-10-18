@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, Modal, Icon } from 'semantic-ui-react';
 
 // Parses the JSON returned by a network request
 //const parseJSON = resp => (resp.json ? resp.json() : resp);
@@ -18,6 +19,28 @@ const headers = {
 };
 
 export default class ListePlat extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false,
+            size: undefined
+        }
+    }
+
+    _reducer(state, action) {
+        switch (action.type) {
+          case 'close':
+            return { ...state, open: false};
+          case 'open':
+            return { ...state, open: true, size: action.size };
+          default:
+            return state;
+        }
+    }
+    
+    reducer(action) {
+        this.setState(this._reducer(this.state, action));
+    }
 
     deletePlat = (idPlat) => {
         try {
@@ -38,7 +61,7 @@ export default class ListePlat extends React.Component {
                     <div className="mt-0">
                         <div className="grid__control_icons">
                             <i onClick={() => {}} className="grid__icon modify inverted pencil alternate icon"></i>
-                            <i onClick={() => this.deletePlat(this.props.plat.id)} className="grid__icon kill inverted trash alternate icon"></i>
+                            <i onClick={() => void this.reducer({ type: 'open', size: 'tiny' })} className="grid__icon kill inverted trash alternate icon"></i>
                         </div>
                     </div>
                     <img src={this.props.plat.image} />
@@ -51,6 +74,24 @@ export default class ListePlat extends React.Component {
                             <span className="grid__tag">{this.props.plat.prix} euros</span>
                         </div>
                     </div>
+                    <Modal
+                        size={this.state.size}
+                        open={this.state.open}
+                        onClose={() => this.reducer({ type: "close" })}
+                    >
+                        <Modal.Header>Supprimer</Modal.Header>
+                        <Modal.Content>
+                        <p>Etes-vous sure de vouloir suprimer {this.props.plat.nom} ?</p>
+                        </Modal.Content>
+                        <Modal.Actions>
+                        <Button negative onClick={() => this.reducer({ type: "close" })}>
+                            <Icon name='remove' /> Non
+                        </Button>
+                        <Button positive onClick={() => this.deletePlat(this.props.plat.id)}>
+                            <Icon name='checkmark' /> Oui
+                        </Button>
+                        </Modal.Actions>
+                    </Modal>
                 </div>
             </>
         )
