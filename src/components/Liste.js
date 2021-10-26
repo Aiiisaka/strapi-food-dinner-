@@ -82,6 +82,13 @@ const Liste = ({plats, menus, match }) => {
                                         return [...prevData]
                                     })
                                 } 
+                                onUpdatePlat = {
+                                    (idPlat,updatedPlat) => setData(prevData => {
+                                        var platToUpdateIndex = prevData.findIndex(element => element.id === idPlat);
+                                        prevData[platToUpdateIndex] = updatedPlat; 
+                                        return [...prevData]
+                                    })
+                                } 
                             plat={plat} key={plat.id} />)
                         }
                     </div>
