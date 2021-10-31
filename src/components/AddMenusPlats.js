@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Button, Divider, Form, Grid, Segment, Message, Header, Icon } from 'semantic-ui-react'
 
-// Parses the JSON returned by a network request
+// Analyse JSON grâce à la requête réseau
 const parseJSON = resp => (resp.json ? resp.json() : resp);
 
-// Checks if a network request came back fine, and throws an error if not
+// Détection si la requête réseau est bonne sinon retourne une erreur
 const checkStatus = resp => {
     if (resp.status >= 200 && resp.status < 300) {
         return resp;
@@ -15,11 +15,14 @@ const checkStatus = resp => {
     });
 };
 
+// JSON
 const headers = {
     'Content-Type': 'application/json',
 };
 
+// Permet d'ajouter des plats ou des menus sur le site !
 export default class AddMenusPlats extends React.Component {
+    // Contructeur des états
     constructor(props) {
         super(props);
         this.state = {
@@ -42,6 +45,7 @@ export default class AddMenusPlats extends React.Component {
         };
     }
 
+    // Récupérer les données des catégories et des menus (Strapi)
     componentDidMount = async () => {
         try {
             const allCategories = await fetch('http://54.37.165.18:1337/categories', {
@@ -64,6 +68,7 @@ export default class AddMenusPlats extends React.Component {
         }
     };
 
+    // Mettre à jour les données des menus
     handleInputChangeMenu = ({ target: { name, value } }) => {
         this.setState(prev => ({
             ...prev,
@@ -74,8 +79,8 @@ export default class AddMenusPlats extends React.Component {
         }));
     };
 
+    // Mettre à jour les données des plats
     handleInputChangePlat = ({ target: { name, value } }) => {
-        console.log("Name : "+name+" - Value : "+value);
         this.setState(prev => ({
             ...prev,
             modifiedDataPlat: {
@@ -85,6 +90,7 @@ export default class AddMenusPlats extends React.Component {
         }));
     };
 
+    // Mettre le Nouveau Plat sur Strapi
     handleSubmitPlat = async e => {
         e.preventDefault();
 
@@ -105,6 +111,7 @@ export default class AddMenusPlats extends React.Component {
         }
     };
 
+    // Mettre le Nouveau Menu sur Strapi
     handleSubmitMenu = async e => {
         e.preventDefault();
 
@@ -125,6 +132,7 @@ export default class AddMenusPlats extends React.Component {
         }
     };
 
+    // Mise en place des options pour les menus (liste des menus présents sur le site)
     renderOptionMenus = unMenu => {
         return (
             <option
@@ -136,6 +144,7 @@ export default class AddMenusPlats extends React.Component {
         );
     };
 
+    // Mise en place des options pour les catégories (liste des catégories présents sur le site)
     renderOptionCategories = uneCategorie => {
         return (
             <option
@@ -147,18 +156,21 @@ export default class AddMenusPlats extends React.Component {
         );
     };
 
+    // Permet de mettre à jour le choix d'une catégorie pour un plat
     handleChangeCategory = (event) => {
         this.handleInputChangePlat({
             target: { name: 'category', value: event.target.options[event.target.selectedIndex].id },
         });
     };
 
+    // Permet de mettre à jour le choix d'un menu pour un plat
     handleChangeMenu = (event) => {
         this.handleInputChangePlat({
             target: { name: 'menu', value: event.target.options[event.target.selectedIndex].id },
         });
     };
 
+    // Affichage
     render() {
         const { error, allCategories, allMenus, modifiedDataMenu, modifiedDataPlat } = this.state;
 
@@ -172,24 +184,22 @@ export default class AddMenusPlats extends React.Component {
 
         return (
             <>
-                <br></br>
-
-                <Header as='h1' icon textAlign='center'>
+                <Header as='h1' icon textAlign='center' color='grey'>
                     <Icon name='settings' circular />
                     Ajouter un Menu ou un Plat
-                    <Header.Subheader>
+                    <Header.Subheader style={{color: 'grey'}}>
                         Vous pouvez ajouter soit un menu soit un plat (entrée, plat, dessert ou boisson) pour le restaurant Straπ Food.
                     </Header.Subheader>
                 </Header>
 
                 <br></br>
 
-                <Segment placeholder>
-                    <Grid columns={2} relaxed='very' stackable>
+                <Segment inverted placeholder>
+                    <Grid inverted columns={2} relaxed='very' stackable>
+                        {/* Ajout d'un menu */}
                         <Grid.Column>
 
-                            <Header as='h2' color='orange' icon size='small' textAlign='center'>
-                                <Icon name='list' />
+                            <Header as='h2' color='orange' size='large' textAlign='center'>
                                 Ajouter un Menu
                             </Header>
 
@@ -205,6 +215,7 @@ export default class AddMenusPlats extends React.Component {
                                 />
 
                                 <Form.Input
+                                    style={{color: 'grey'}}
                                     icon='pencil write'
                                     iconPosition='left'
                                     label='Nom'
@@ -230,10 +241,10 @@ export default class AddMenusPlats extends React.Component {
                             </Form>
                         </Grid.Column>
 
+                        {/* Ajout d'un plat */}
                         <Grid.Column verticalAlign='middle'>
 
-                            <Header as='h2' icon textAlign='center' size='small' color='teal'>
-                                <Icon name='food' />
+                            <Header as='h2' textAlign='center' size='large' color='teal'>
                                 Ajouter un Plat
                             </Header>
 
@@ -298,13 +309,15 @@ export default class AddMenusPlats extends React.Component {
                                     </Form.Field>
                                 </Form.Group>
                                 
-                                <Button type='submit' content='Ajouter ce Plat' icon='coffee' basic color='teal' />
+                                <Button type='submit' content='Ajouter ce Plat' icon='food' basic color='teal' />
                             </Form>
                         </Grid.Column>
                     </Grid>
 
-                    <Divider vertical>Ou</Divider>
+                    <Divider inverted vertical>Ou</Divider>
                 </Segment>
+
+                <br></br><br></br>
             </>
         );
     }

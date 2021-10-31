@@ -227,3 +227,36 @@ padding: 0 0 2em 0;
       font-size: 25px;
   }    
 }
+
+/* AddMenusPlats */
+
+.field label, .modal .divider h4, .modal .divider i, .container {
+  color: grey !important;
+}
+
+.field input, .field textarea, .field select {
+  background-color: #121212 !important;
+  color: white !important;
+}
+
+.field i {
+  color: white !important;
+}
+
+/* Modal */
+
+.modal .actions, .modal .content, .modal .header, .modal .description {
+  background-color: #121212 !important;
+  color: white !important;
+}
+
+.modal .actions h4 {
+  color: white !important;
+}
+
+/* Texte pour StrapiFood */
+
+.container b {
+  font-size: large;
+  color: white !important;
+}
